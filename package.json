@@ -1,0 +1,10 @@
+{
+  "name": "zizhong",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "把一段文字的词频与情感，可视化成落进玻璃样本瓶里的矿物沉积。",
+  "scripts": {
+    "test": "node --test"
+  }
+}
