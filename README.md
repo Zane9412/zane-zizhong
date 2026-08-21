@@ -1,8 +1,12 @@
 # 字重 (zizhong)
 
+<img src="assets/logo.png" width="96" alt="字重 logo">
+
 把一段文字的词频与情感，可视化成落进玻璃样本瓶里的矿物沉积。纯前端单页应用，不调用任何 AI 接口，不依赖服务器。
 
 在线体验：https://zane9412.github.io/zizhong/
+
+![字重预览](assets/cover.png)
 
 ## 这是什么
 

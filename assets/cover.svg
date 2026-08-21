@@ -1,0 +1,94 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="page-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#181C20"/>
+      <stop offset="1" stop-color="#0F1214"/>
+    </linearGradient>
+    <linearGradient id="jar-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E2429"/>
+      <stop offset="1" stop-color="#12161A"/>
+    </linearGradient>
+    <linearGradient id="jar-rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2C3540"/>
+      <stop offset="1" stop-color="#2C3540" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="chipshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#page-bg)"/>
+
+  <!-- left: title block -->
+  <text x="80" y="190" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="3"
+        fill="#9C948A">WEIGHT OF WORDS · 文字沉积实验</text>
+  <text x="76" y="360" font-family="Noto Serif SC, Songti SC, serif" font-weight="900" font-size="140"
+        fill="#EDE6DC">字<tspan fill="#E8A23D">重</tspan></text>
+  <text x="80" y="432" font-family="Noto Sans SC, sans-serif" font-size="24" fill="#9C948A">
+    <tspan x="80" dy="0">把一段文字的词频与情感称重，</tspan>
+    <tspan x="80" dy="36">看它落进玻璃瓶里，沉积成形。</tspan>
+  </text>
+  <text x="80" y="548" font-family="IBM Plex Mono, monospace" font-size="16" fill="#6C6459">
+    <tspan x="80" dy="0">◆ 纯前端 · 无 AI 接口 · 无服务器</tspan>
+    <tspan x="80" dy="30">◆ zane9412.github.io/zizhong</tspan>
+  </text>
+
+  <!-- right: jar mock -->
+  <g transform="translate(660,60)">
+    <rect x="0" y="0" width="470" height="560" rx="60" fill="url(#jar-bg)" stroke="#2C3540" stroke-width="2"/>
+    <rect x="0" y="0" width="470" height="70" rx="60" fill="url(#jar-rim)"/>
+    <text x="410" y="42" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13"
+          letter-spacing="2" fill="#B9AF9F" opacity="0.7">SAMPLE JAR — TEXT SEDIMENT</text>
+    <rect x="470" y="484" width="0" height="0"/>
+    <rect x="0" y="500" width="470" height="60" fill="url(#ground)"/>
+    <line x1="0" y1="516" x2="470" y2="516" stroke="#EDE8E1" stroke-opacity="0.14"/>
+
+    <!-- champion -->
+    <g filter="url(#chipshadow)">
+      <rect x="150" y="420" width="180" height="72" rx="14" fill="#E8A23D"/>
+    </g>
+    <text x="240" y="466" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="34" fill="#14181B">希望</text>
+    <circle cx="308" cy="434" r="14" fill="#F4E3B2" stroke="#00000059" stroke-width="1"/>
+    <text x="308" y="439" text-anchor="middle" font-size="15" fill="#5A4300">★</text>
+
+    <g filter="url(#chipshadow)">
+      <rect x="34" y="428" width="104" height="56" rx="12" fill="#6C7BD9" transform="rotate(-3 86 456)"/>
+      <rect x="336" y="424" width="118" height="60" rx="12" fill="#6C7BD9" transform="rotate(2 395 454)"/>
+    </g>
+    <text x="86" y="462" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="24" fill="#14181B" transform="rotate(-3 86 456)">黑暗</text>
+    <text x="395" y="460" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="26" fill="#14181B" transform="rotate(2 395 454)">struggle</text>
+
+    <g filter="url(#chipshadow)">
+      <rect x="60" y="352" width="140" height="58" rx="12" fill="#ABA192" transform="rotate(2 130 381)"/>
+      <rect x="250" y="348" width="150" height="58" rx="12" fill="#E8A23D" transform="rotate(-2 325 377)"/>
+    </g>
+    <text x="130" y="388" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="24" fill="#14181B" transform="rotate(2 130 381)">debugging</text>
+    <text x="325" y="384" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="26" fill="#14181B" transform="rotate(-2 325 377)">甜蜜</text>
+
+    <g filter="url(#chipshadow)">
+      <rect x="40" y="286" width="96" height="50" rx="11" fill="#6C7BD9" transform="rotate(-4 88 311)"/>
+      <rect x="170" y="280" width="90" height="48" rx="11" fill="#ABA192" transform="rotate(3 215 304)"/>
+      <rect x="300" y="284" width="100" height="50" rx="11" fill="#E8A23D" transform="rotate(-2 350 309)"/>
+    </g>
+    <text x="88" y="317" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="20" fill="#14181B" transform="rotate(-4 88 311)">焦虑</text>
+    <text x="215" y="310" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="20" fill="#14181B" transform="rotate(3 215 304)">relief</text>
+    <text x="350" y="315" text-anchor="middle" font-family="Noto Sans SC, sans-serif" font-weight="600"
+          font-size="20" fill="#14181B" transform="rotate(-2 350 309)">joy</text>
+
+    <text x="20" y="30" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2"
+          fill="#B9AF9F" opacity="0.6">轻 ↑</text>
+    <text x="20" y="536" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2"
+          fill="#B9AF9F" opacity="0.6">重 ↓</text>
+  </g>
+</svg>
