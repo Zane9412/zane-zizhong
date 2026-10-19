@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+
+# 环境配置与凭据：真实值只在本机或服务器，示例文件照常提交
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
