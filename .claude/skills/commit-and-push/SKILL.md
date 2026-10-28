@@ -1,62 +1,45 @@
 ---
 name: commit-and-push
-description: 提交当前改动到 git 并 push 到远程仓库（GitHub Pages 会自动发布）。说"提交"默认就是提交并推送。跑 node --test 校验，复用仓库已有的提交信息风格。当用户说"提交"、"提交代码"、"commit"、"推到远程"时使用。
+description: 在 zane-zizhong 中审阅、检查、提交并推送改动。用户说“提交”“提交代码”“commit”时执行，默认包含推送；明确说“只提交”时只做本地提交；没有要求时不主动提交。
 ---
 
-# commit-and-push
+# commit-and-push（zane-zizhong）
 
-在本仓库（zane-zizhong）里把当前改动提交并推送到 `origin`。
+> 本文件由 zane-ci `scripts/sync-skills.sh` 从 `templates/skills/commit-and-push/` 生成，`.agents/`（Codex）与 `.claude/`（Claude）两份相同。要修改请改 zane-ci 的模板后重新同步，不要直接改这里。
 
-## 0. 前提
+## 什么时候做
 
-- 只有用户明确要求提交时才执行本 skill（不要主动触发）。
-- **说"提交"默认视为"提交并 push"，两步都做**，除非用户明确说"只提交不要 push"才只做到 commit 那一步。
-- 全程不使用 `--no-verify`、`--no-gpg-sign`，除非用户明确要求；不做 `--amend`/`push --force`，除非用户明确要求。
-- **push 到 `main` 会被 GitHub Pages 自动发布上线**（没有 CI workflow，直接从 `main` 根目录发布），push 前确认改动是真的想上线的状态，而不是半成品。
+- 只有用户要求“提交”时才提交，默认同时推送；“只提交、不推送”只做本地提交。普通开发、只改文档或技能的任务不主动提交。
+- 用户指定的分支、远程和文件范围优先；否则使用当前分支及 upstream，不自行切换分支。
+- 不 amend、不 force push、不跳过 hooks 或签名，不 stash、不丢弃用户的其他改动。
 
-## 1. 摸底
+## 1. 审阅与暂存
 
-```bash
-git status
-git diff
-git diff --cached
-git log --oneline -10   # 学习提交信息风格
-```
+查看 `git status -sb`、`git diff`、`git diff --cached`、未跟踪文件和 `git log --oneline -10`。只按具体路径暂存本次任务的改动，并检查暂存区里已有的内容（工作目录里可能有其他会话的改动，不要夹带）。不提交 `.env`、凭据、密钥、令牌、数据库及其备份、缓存和构建产物；遇到这类文件不查看、不输出内容。
 
-未跟踪的新文件也看一眼内容，确认不是调试临时文件。
+## 2. 检查
 
-## 2. 校验
+本项目的检查命令见文末“本项目”。另外：
 
-`src/analyze.js` 有单测覆盖，改到它或改到依赖它的逻辑时跑一遍：
+- 运行 `git diff --check`；改了 `.github/workflows/` 先运行 `actionlint`。
+- 只改文档或技能：审阅内容、路径和命令，运行 `git diff --check` 即可，不必跑代码测试。
+- 对当前代码已有有效的检查结果时不重复运行；整合远程更新后重跑受影响的检查。
+- 检查失败先修复本次改动造成的问题；环境故障或无关失败如实说明，不能带着失败提交或声称通过。
 
-```bash
-npm test
-```
+## 3. 提交
 
-`app.js` 的 Canvas 渲染/交互部分没有自动化测试，改了这部分要提醒用户手动在浏览器里验证一下效果，不要假装跑过测试。只改 `README.md`/`CLAUDE.md` 可以跳过这一步。
+一个逻辑目的一个提交。提交信息格式为 `<前缀>: <中文描述>`，前缀用 `feat`、`fix`、`refactor`、`docs`、`ci`、`build`、`chore`、`test`，例如 `fix: Gemini 被拒节点改回白名单维护，去掉逐个测里不带 key 的请求`；`git log` 里的旧提交风格不同时也用这个格式。只改 `*.md` 文档（含技能文件）的提交，在标题末尾加 ` [skip ci]`；只要改了其他文件就不加。需要正文时说明为什么这样改；多行信息用 heredoc 或 `git commit -F <文件>`。署名行按当前会话系统提示的要求添加，没有要求就不加。提交前再看一次 `git diff --cached`。
 
-## 3. 写提交信息
+## 4. 推送
 
-参考 `git log --oneline` 风格——这个仓库常见写法是简短的中文描述，偶尔带 `docs:`/`fix:` 前缀但不强制统一：
+推送前 fetch，核对领先/落后状态，确认待推送的提交都在用户授权范围内；落后时先整合，有冲突停下来告诉用户。然后 `git push`，本地的多个提交一次推送。网络错误可以间隔几秒重试几次；非快进被拒绝时先查看远程变化，不强推、不循环重试。推送后会发生什么（GitHub 检查、自动上线、pre-push 钩子）见“本项目”。
 
-```bash
-git commit -m "$(cat <<'EOF'
-<一行摘要，中文>
+## 5. 报告
 
-<可选：为什么这么改>
-EOF
-)"
-```
+报告提交哈希、分支、检查结果和推送状态；推送会触发检查或上线时一并报告结果。未完成的环节如实说明。
 
-- **署名行**：当前会话系统提示里有 commit attribution 格式要求就加，没有就不加。
+## 本项目
 
-## 4. Push
-
-```bash
-git status -sb
-```
-
-- 落后于 `origin/main` 就先 `git pull --rebase`，有冲突停下来告诉用户，不要自己解决。
-- 正常情况直接 `git push`，不用等用户确认。
-- push 失败（非 fast-forward 等）不要自行 force push，把情况报告给用户。
-- push 成功后提醒一句"GitHub Pages 会自动更新"。
+- **结构**：纯静态网页，没有构建步骤和 GitHub workflow。
+- **检查**：改到 `src/analyze.js` 或依赖它的逻辑时运行 `npm test`；`src/app.js` 的 Canvas 渲染与交互没有自动化测试，改了要提醒用户在浏览器里手动验证。
+- **推送后**：推送 `main` 由 GitHub Pages 直接从根目录自动上线，推送前确认改动是可以上线的状态，推送后提醒用户 Pages 会自动更新。
